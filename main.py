@@ -1,8 +1,7 @@
 import arcade
 import random
 
-
-NUM_SHAPES = 100
+NUM_SHAPES = 10
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
@@ -18,10 +17,11 @@ class Cercle:
         # la position est determinee par le clic, les autres parametres sont aleatoires
         self.centre_x = x
         self.centre_y = y
-        self.rayon = random.randint(10, 30)
         self.change_x = random.randint(-5, 5)
         self.change_y = random.randint(-5, 5)
         self.color = random.choice(COLORS)
+
+        self.rayon = random.randint(10, 30)
 
     def update(self):
         self.centre_x += self.change_x
