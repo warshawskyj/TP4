@@ -25,9 +25,11 @@ class Cercle:
         self.rayon = random.randint(10, 30)
 
     def update(self):
+        # deplacer le cercle selon sa vitesse
         self.centre_x += self.change_x
         self.centre_y += self.change_y
         # assurer que le cercle reste dans l'ecran
+        # la multiplication part -1 permet de changer la direction du mouvement
         if self.centre_x < self.rayon or self.centre_x > SCREEN_WIDTH - self.rayon:
             self.change_x *= -1
         if self.centre_y < self.rayon or self.centre_y > SCREEN_HEIGHT - self.rayon:
@@ -39,6 +41,7 @@ class Cercle:
 
 class Rectangle:
     def __init__(self, x, y):
+        # la position est determinee par le clic, les autres parametres sont aleatoires
         self.centre_x = x
         self.centre_y = y
         self.largeur = random.randint(10, 60)
@@ -49,6 +52,7 @@ class Rectangle:
         self.color = random.choice(COLORS)
 
     def update(self):
+        # deplacer le rectangle selon sa vitesse
         self.centre_x += self.change_x
         self.centre_y += self.change_y
         # assurer que le rectangle reste dans l'ecran
@@ -74,13 +78,14 @@ class MyGame(arcade.Window):
             center_x = random.randint(30, SCREEN_WIDTH - 30)
             center_y = random.randint(30, SCREEN_HEIGHT - 30)
             self.liste_formes.append(Cercle(center_x, center_y))
+        # remplir la liste avec 20 objets de type Rectangle
         for _ in range(NUM_SHAPES):
             center_x = random.randint(60, SCREEN_WIDTH - 60)
             center_y = random.randint(60, SCREEN_HEIGHT - 60)
             self.liste_formes.append(Rectangle(center_x, center_y))
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
-        # ajouter un nouveau cercle a la liste
+        # ajouter un nouveau cercle ou rectangle a la liste
         if button == LEFT_BUTTON:
             self.liste_formes.append(Cercle(x, y))
         elif button == RIGHT_BUTTON:
@@ -88,7 +93,7 @@ class MyGame(arcade.Window):
 
     def on_draw(self):
         arcade.start_render()
-
+        # dessiner tous les objets de la liste et les faire bouger
         for cercle in self.liste_formes:
             cercle.update()
             cercle.draw()
