@@ -1,9 +1,10 @@
 import arcade
 import random
+from math import atan2, pi
 
-NUM_SHAPES = 10
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+NUM_SHAPES = 100
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 750
 
 COLORS = [arcade.color.BLUE, arcade.color.FANDANGO_PINK,
           arcade.color.FRENCH_ROSE, arcade.color.GOLDEN_POPPY]
@@ -42,9 +43,9 @@ class Rectangle:
         self.centre_y = y
         self.largeur = random.randint(10, 60)
         self.hauteur = random.randint(10, 60)
-        self.angle = random.randint(0, 360)
-        self.change_x = random.randint(-5, 5)
-        self.change_y = random.randint(-5, 5)
+        self.change_x = random.randint(-50, 50)
+        self.change_y = random.randint(-50, 50)
+        self.angle = 0
         self.color = random.choice(COLORS)
 
     def update(self):
@@ -53,10 +54,10 @@ class Rectangle:
         # assurer que le rectangle reste dans l'ecran
         if self.centre_x < self.largeur or self.centre_x > SCREEN_WIDTH - self.largeur:
             self.change_x *= -1
-            self.angle = 180 - self.angle
         if self.centre_y < self.hauteur or self.centre_y > SCREEN_HEIGHT - self.hauteur:
             self.change_y *= -1
-            self.angle = 180 - self.angle
+        # tourner le rectangle dans la direction de son mouvement
+        self.angle = atan2(self.change_y, self.change_x) + pi / 4
 
     def draw(self):
         arcade.draw_rectangle_filled(self.centre_x, self.centre_y, self.largeur, self.hauteur, self.color, self.angle)
