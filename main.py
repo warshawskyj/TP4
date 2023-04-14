@@ -2,7 +2,7 @@ import arcade
 import random
 from math import atan2, pi
 
-NUM_SHAPES = 100
+NUM_SHAPES = 20
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 750
 
@@ -46,8 +46,8 @@ class Rectangle:
         self.centre_y = y
         self.largeur = random.randint(10, 60)
         self.hauteur = random.randint(10, 60)
-        self.change_x = random.randint(-50, 50)
-        self.change_y = random.randint(-50, 50)
+        self.change_x = random.randint(-5, 5)
+        self.change_y = random.randint(-5, 5)
         self.angle = 0
         self.color = random.choice(COLORS)
 
